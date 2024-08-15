@@ -97,7 +97,7 @@ export const columns: ColumnDef<DaleyRecommendation>[] = [
           </DropdownMenuTrigger>
 
           <DropdownMenuContent align="center">
-            <Link href={`/admin/daley-recommendations/${id}`}>
+            <Link href={`/admin/daily-recommendations/${id}`}>
               <DropdownMenuItem>
                 <PenLine className="h-4 w-4 mr-2" /> تعديل
               </DropdownMenuItem>
