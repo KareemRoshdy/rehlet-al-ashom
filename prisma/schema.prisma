@@ -1,0 +1,196 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Course {
+  id          String   @id @default(uuid())
+  userId      String
+  title       String   @db.Text
+  description String?  @db.Text
+  imageUrl    String?  @db.Text
+  price       Float?
+  isPublished Boolean? @default(false)
+
+  chapters  Chapter[]
+  purchases Purchase[]
+
+  createdAt  DateTime @default(now())
+  updateddAt DateTime @updatedAt
+}
+
+model Wallet {
+  id          String  @id @default(uuid())
+  title       String  @db.Text
+  description String? @db.Text
+  imageUrl    String? @db.Text
+  price       Float?
+
+  isPublished Boolean? @default(false)
+
+  walletPurchase WalletPurchase[]
+
+  createdAt  DateTime @default(now())
+  updateddAt DateTime @updatedAt
+}
+
+model WalletPurchase {
+  id     String @id @default(uuid())
+  userId String
+
+  walletId String
+  wallet   Wallet @relation(fields: [walletId], references: [id], onDelete: Cascade)
+
+  createdAt  DateTime @default(now())
+  updateddAt DateTime @updatedAt
+
+  @@unique([userId, walletId])
+  @@index([walletId])
+}
+
+model News {
+  id          String  @id @default(uuid())
+  title       String  @db.Text
+  description String? @db.Text
+  imageUrl    String? @db.Text
+
+  isPublished Boolean? @default(false)
+
+  createdAt  DateTime @default(now())
+  updateddAt DateTime @updatedAt
+}
+
+model Recommendation {
+  id          String  @id @default(uuid())
+  title       String  @db.Text
+  description String? @db.Text
+  imageUrl    String? @db.Text
+  price       Float?
+
+  isPublished Boolean? @default(false)
+
+  RecommendationPurchase RecommendationPurchase[]
+
+  createdAt  DateTime @default(now())
+  updateddAt DateTime @updatedAt
+}
+
+model RecommendationPurchase {
+  id     String @id @default(uuid())
+  userId String
+
+  recommendationId String
+  recommendation   Recommendation @relation(fields: [recommendationId], references: [id], onDelete: Cascade)
+
+  createdAt  DateTime @default(now())
+  updateddAt DateTime @updatedAt
+
+  @@unique([userId, recommendationId])
+  @@index([recommendationId])
+}
+
+model DaleyRecommendation {
+  id          String  @id @default(uuid())
+  title       String  @db.Text
+  description String? @db.Text
+  imageUrl    String? @db.Text
+  price       Float?
+
+  isPublished Boolean? @default(false)
+
+  daleyRecommendationPurchase DaleyRecommendationPurchase[]
+
+  createdAt  DateTime @default(now())
+  updateddAt DateTime @updatedAt
+}
+
+model DaleyRecommendationPurchase {
+  id     String @id @default(uuid())
+  userId String
+
+  daleyrecommendationId String
+  daleyrecommendation   DaleyRecommendation @relation(fields: [daleyrecommendationId], references: [id], onDelete: Cascade)
+
+  createdAt  DateTime @default(now())
+  updateddAt DateTime @updatedAt
+
+  @@unique([userId, daleyrecommendationId])
+  @@index([daleyrecommendationId])
+}
+
+model Chapter {
+  id          String  @id @default(uuid())
+  title       String
+  description String? @db.Text
+  videoUrl    String? @db.Text
+  position    Int
+  isPublished Boolean @default(false)
+  isFree      Boolean @default(false)
+
+  muxData MuxData?
+
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  userProgress UserProgress[]
+
+  createdAt  DateTime @default(now())
+  updateddAt DateTime @updatedAt
+
+  @@index([courseId])
+}
+
+model UserProgress {
+  id     String @id @default(uuid())
+  userId String
+
+  chapterId String
+  chapter   Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+
+  isCompleted Boolean @default(false)
+
+  createdAt  DateTime @default(now())
+  updateddAt DateTime @updatedAt
+
+  @@unique([userId, chapterId])
+  @@index([chapterId])
+}
+
+model MuxData {
+  id         String  @id @default(uuid())
+  assetId    String
+  playbackId String?
+
+  chapterId String  @unique
+  chapter   Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+
+  createdAt  DateTime @default(now())
+  updateddAt DateTime @updatedAt
+}
+
+model Purchase {
+  id     String @id @default(uuid())
+  userId String
+
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  createdAt  DateTime @default(now())
+  updateddAt DateTime @updatedAt
+
+  @@unique([userId, courseId])
+  @@index([courseId])
+}
+
+model StripeCustomer {
+  id               String @id @default(uuid())
+  userId           String @unique
+  stripeCustomerId String @unique
+
+  createdAt  DateTime @default(now())
+  updateddAt DateTime @updatedAt
+}
