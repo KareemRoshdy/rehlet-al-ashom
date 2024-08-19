@@ -37,8 +37,8 @@ const NavLinks = () => {
       {links.map((link) => (
         <>
           <Link
-            className={`text-gray-500 transition hover:text-[#0369a1] ${
-              active === link.href && "text-[#0369a1]"
+            className={`transition hover:text-[#0369a1] ${
+              active === link.href ? "text-[#0369a1] " : "text-gray-500"
             }`}
             href={link.href}
             key={link.href}
