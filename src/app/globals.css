@@ -53,6 +53,14 @@ html {
   }
 }
 
+.chapter {
+  .ql-editor {
+    p {
+      padding: 10px;
+    }
+  }
+}
+
 .fix-h {
   min-height: calc(100vh - 80px);
 }

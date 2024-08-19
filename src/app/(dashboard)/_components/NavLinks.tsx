@@ -1,6 +1,10 @@
+"use client";
 import Link from "next/link";
+import { useState } from "react";
 
 const NavLinks = () => {
+  const [active, setActive] = useState("#home");
+
   const links = [
     {
       label: "الرئيسية",
@@ -33,9 +37,12 @@ const NavLinks = () => {
       {links.map((link) => (
         <>
           <Link
-            className="text-gray-500 transition hover:text-gray-500/75"
+            className={`text-gray-500 transition hover:text-[#0369a1] ${
+              active === link.href && "text-[#0369a1]"
+            }`}
             href={link.href}
             key={link.href}
+            onClick={() => setActive(link.href)}
           >
             {link.label}
           </Link>

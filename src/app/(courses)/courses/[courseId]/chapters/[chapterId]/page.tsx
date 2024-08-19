@@ -65,7 +65,7 @@ const CourseDetailsPage = async ({
   const token = await firstStep(course.price || 0);
 
   return (
-    <div>
+    <div className="chapter">
       {purchase && (
         <Banner variant="success" label="أنت مشترك في هذه الدورة بالفعل" />
       )}
