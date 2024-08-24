@@ -7,6 +7,7 @@ import Recommendations from "./_components/Recommendations";
 import DaleyRecommendations from "./_components/DaleyRecommendations";
 import SocialMedia from "@/components/SocialMedia";
 import Wallet from "./_components/Wallet";
+import Test from "./_components/Test";
 
 export const metadata: Metadata = {
   title: "Dashboard",

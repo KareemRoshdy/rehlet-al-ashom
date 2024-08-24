@@ -10,6 +10,7 @@ import {
   Wallet,
 } from "@prisma/client";
 import axios from "axios";
+import { Loader } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -36,6 +37,7 @@ const Invoice = ({
   const router = useRouter();
 
   // All States
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [course, setCourse] = useState<Course | null>(null);
   const [recommendation, setRecommendation] = useState<Recommendation | null>(
     null
@@ -44,136 +46,161 @@ const Invoice = ({
     useState<DaleyRecommendation | null>(null);
   const [wallet, setWallet] = useState<Wallet | null>(null);
 
-  const amount = +amount_cents;
-
   const getData = async () => {
-    if (courseId) {
-      try {
-        const response = await axios.get(`/api/courses/${courseId}`);
-        console.log("Course Response:", response);
+    try {
+      setIsLoading(true);
 
-        const course: Course = response.data;
+      if (courseId) {
+        try {
+          const response = await axios.get(`/api/courses/${courseId}`);
 
-        if (!course) {
-          console.log("No course found");
-          return null;
+          const course: Course = response.data;
+
+          if (course) {
+            setCourse(course);
+          }
+        } catch (error) {
+          console.log("Error fetching course:", error);
         }
-
-        setCourse(course);
-      } catch (error) {
-        console.log("Error fetching course:", error);
       }
-    }
 
-    if (recommendationId) {
-      try {
-        const response = await axios.get(
-          `/api/recommendations/${recommendationId}`
-        );
-        console.log("Recommendation Response:", response);
+      if (recommendationId) {
+        try {
+          const response = await axios.get(
+            `/api/recommendations/${recommendationId}`
+          );
 
-        const recommendation: Recommendation = response.data;
+          const recommendation: Recommendation = response.data;
 
-        if (!recommendation) {
-          console.log("No recommendation found");
-          return null;
+          if (recommendation) {
+            setRecommendation(recommendation);
+          }
+        } catch (error) {
+          console.log("Error fetching recommendation:", error);
         }
-
-        setRecommendation(recommendation);
-      } catch (error) {
-        console.log("Error fetching recommendation:", error);
       }
-    }
 
-    if (dailyRecommendationId) {
-      try {
-        const response = await axios.get(
-          `/api/daily-recommendations/${dailyRecommendationId}`
-        );
-        console.log("Daily Recommendation Response:", response);
+      if (dailyRecommendationId) {
+        try {
+          const response = await axios.get(
+            `/api/daily-recommendations/${dailyRecommendationId}`
+          );
 
-        const dailyRecommendation: DaleyRecommendation = response.data;
+          const dailyRecommendation: DaleyRecommendation = response.data;
 
-        if (!dailyRecommendation) {
-          console.log("No daily recommendation found");
-          return null;
+          if (dailyRecommendation) {
+            setDailyRecommendation(dailyRecommendation);
+          }
+        } catch (error) {
+          console.log("Error fetching daily recommendation:", error);
         }
-
-        setDailyRecommendation(dailyRecommendation);
-      } catch (error) {
-        console.log("Error fetching daily recommendation:", error);
       }
-    }
 
-    if (walletId) {
-      try {
-        const response = await axios.get(`/api/wallet/${walletId}`);
-        console.log("Wallet Response:", response);
+      if (walletId) {
+        try {
+          const response = await axios.get(`/api/wallet/${walletId}`);
 
-        const wallet: Wallet = response.data;
+          const wallet: Wallet = response.data;
 
-        if (!wallet) {
-          console.log("No wallet found");
-          return null;
+          if (wallet) {
+            setWallet(wallet);
+          }
+        } catch (error) {
+          console.log("Error fetching wallet:", error);
         }
-
-        setWallet(wallet);
-      } catch (error) {
-        console.log("Error fetching wallet:", error);
       }
+    } catch (error) {
+      setIsLoading(false);
+      console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
     getData();
-    console.log({
-      wallet,
-      recommendation,
-      dailyRecommendation,
-      course,
-    });
   }, [courseId, recommendationId, dailyRecommendationId, walletId]);
 
   return (
     <div className="p-3 max-w-md w-full">
       <Banner label="برجاء أخذ لقطة شاشة لهذه الفاتورة لإثبات عملية الدفع" />
 
-      <div className="my-3 border rounded-md w-full p-2">
-        <h2 className="text-xl font-bold text-center mb-6 bg-[#0369a1] text-white">
-          فاتورة إشتراك
-        </h2>
-
-        <div className="mb-2 border-b pb-2">
-          <div className="space-y-2">
-            <p>
-              <strong>رقم الفاتورة: </strong>
-              <span>{transaction_id}</span>
-            </p>
-            {user && (
-              <p>
-                <strong>إسم المستخم: </strong>
-                <span>{user?.fullName}</span>
-              </p>
-            )}
-            <p>
-              <strong>المبلغ: </strong>
-              <span>{formatPrice(amount)}</span>
-            </p>
-            <p>
-              <strong>حالة الدفع: </strong>
-              <span>{isSuccess ? "ناجحة" : "غير ناجحة"}</span>
-            </p>
-            <p>
-              <strong>إسم المنتج: </strong>
-              <span>تعلم التداول من الصفر الي الاحتراف للمبتدئين</span>
-            </p>
-          </div>
+      {isLoading ? (
+        <div className="w-full text-center flex items-center justify-center gap-x-1">
+          <Loader className="size-4 mx-auto animate-spin" />
+          <span className="">يتم تحميل الفاتورة...</span>
         </div>
+      ) : (
+        <div className="my-3 border rounded-md w-full p-2">
+          <h2 className="text-xl font-bold text-center mb-6 bg-[#0369a1] text-white">
+            فاتورة إشتراك
+          </h2>
 
-        <span className="text-xs block text-center text-gray-500 font-semibold">
-          هذه الفاتورة إثبات لعملية الدفع
-        </span>
-      </div>
+          <div className="mb-2 border-b pb-2">
+            <div className="space-y-2">
+              {transaction_id && (
+                <p>
+                  <strong>رقم الفاتورة: </strong>
+                  <span>{transaction_id}</span>
+                </p>
+              )}
+
+              {user && (
+                <p>
+                  <strong>إسم المستخم: </strong>
+                  <span>{user?.fullName}</span>
+                </p>
+              )}
+
+              {amount_cents && (
+                <p>
+                  <strong>المبلغ: </strong>
+                  <span>{formatPrice(+amount_cents / 100)}</span>
+                </p>
+              )}
+
+              {isSuccess && (
+                <p>
+                  <strong>حالة الدفع: </strong>
+                  <span>{isSuccess ? "ناجحة" : "غير ناجحة"}</span>
+                </p>
+              )}
+
+              {course && (
+                <p>
+                  <strong>إسم المنتج: </strong>
+                  <span>{course.title}</span>
+                </p>
+              )}
+
+              {wallet && (
+                <p>
+                  <strong>إسم المنتج: </strong>
+                  <span>{wallet.title}</span>
+                </p>
+              )}
+
+              {recommendation && (
+                <p>
+                  <strong>إسم المنتج: </strong>
+                  <span>{recommendation.title}</span>
+                </p>
+              )}
+
+              {dailyRecommendation && (
+                <p>
+                  <strong>إسم المنتج: </strong>
+                  <span>{dailyRecommendation.title}</span>
+                </p>
+              )}
+            </div>
+          </div>
+
+          <span className="text-xs block text-center text-gray-500 font-semibold">
+            هذه الفاتورة إثبات لعملية الدفع
+          </span>
+        </div>
+      )}
     </div>
   );
 };

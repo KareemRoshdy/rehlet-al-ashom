@@ -89,7 +89,7 @@ export async function GET(
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
-    const wallet = await prisma.recommendation.findUnique({
+    const wallet = await prisma.wallet.findUnique({
       where: {
         id: walletId,
       },
