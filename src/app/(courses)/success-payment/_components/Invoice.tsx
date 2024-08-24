@@ -126,13 +126,17 @@ const Invoice = ({
       <Banner label="برجاء أخذ لقطة شاشة لهذه الفاتورة لإثبات عملية الدفع" />
 
       {isLoading ? (
-        <div className="w-full text-center flex items-center justify-center gap-x-1">
-          <Loader className="size-4 mx-auto animate-spin" />
-          <span className="">يتم تحميل الفاتورة...</span>
+        <div className="w-full text-center flex items-center justify-center gap-x-1 my-2">
+          <Loader className="size-4 animate-spin" />
+          <span className="text-xs text-gray-500">يتم تحميل الفاتورة...</span>
         </div>
       ) : (
         <div className="my-3 border rounded-md w-full p-2">
-          <h2 className="text-xl font-bold text-center mb-6 bg-[#0369a1] text-white">
+          <h2
+            className={`text-xl font-bold text-center mb-6 text-white ${
+              isSuccess ? "bg-[#0369a1]" : "bg-red-600"
+            }`}
+          >
             فاتورة إشتراك
           </h2>
 
@@ -159,12 +163,10 @@ const Invoice = ({
                 </p>
               )}
 
-              {isSuccess && (
-                <p>
-                  <strong>حالة الدفع: </strong>
-                  <span>{isSuccess ? "ناجحة" : "غير ناجحة"}</span>
-                </p>
-              )}
+              <p>
+                <strong>حالة الدفع: </strong>
+                <span>{isSuccess ? "ناجحة" : "غير ناجحة"}</span>
+              </p>
 
               {course && (
                 <p>
