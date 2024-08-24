@@ -71,11 +71,6 @@ const teacherRoutes = [
     label: "إدارة المحافظ",
     href: "/admin/wallet",
   },
-  {
-    icon: BarChart,
-    label: "الإحصائيات",
-    href: "/admin/analytics",
-  },
 ];
 
 const SidebarRoutes = () => {
