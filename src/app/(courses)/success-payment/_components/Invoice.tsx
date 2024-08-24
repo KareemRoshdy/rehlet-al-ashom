@@ -137,7 +137,7 @@ const Invoice = ({
               isSuccess ? "bg-[#0369a1]" : "bg-red-600"
             }`}
           >
-            فاتورة إشتراك
+            {isSuccess ? "فاتورة إشتراك" : "لم يتم الإشتراك"}
           </h2>
 
           <div className="mb-2 border-b pb-2">

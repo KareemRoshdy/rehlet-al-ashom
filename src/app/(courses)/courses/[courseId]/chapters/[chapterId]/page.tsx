@@ -11,6 +11,7 @@ import VideoPlayer from "./_components/VideoPlayer";
 import { CheckCheck } from "lucide-react";
 import CourseImageAndDescription from "./_components/CourseImageAndDescription";
 import { firstStep } from "@/utils/paymobToken";
+import Heading from "@/utils/Heading";
 
 interface CourseDetailsPageProps {
   params: {
@@ -66,6 +67,10 @@ const CourseDetailsPage = async ({
 
   return (
     <div className="chapter">
+      <Heading
+        title={chapter.title}
+        description="Watch and enjoy our curated video content designed to enhance your knowledge and skills. Explore videos on various topics, including trading strategies, market analysis, and more. Our videos are tailored to provide you with valuable insights and practical tips to help you achieve your financial goals. Stay tuned for new updates and featured content. شاهد واستمتع بمحتوى الفيديوهات المخصص الذي يهدف إلى تعزيز معرفتك ومهاراتك. استعرض الفيديوهات حول مواضيع متنوعة، بما في ذلك استراتيجيات التداول، تحليل السوق، والمزيد. تم تصميم فيديوهاتنا لتزويدك برؤى قيمة ونصائح عملية تساعدك في تحقيق أهدافك المالية. ترقب التحديثات الجديدة والمحتوى المميز."
+      />
       {purchase && (
         <Banner variant="success" label="أنت مشترك في هذه الدورة بالفعل" />
       )}

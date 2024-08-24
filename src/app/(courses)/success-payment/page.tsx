@@ -2,7 +2,7 @@ import SuccessPayment from "./_components/SuccessPayment";
 import React from "react";
 import { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "Success Payment",
+  title: "إختبار عملية الدفع",
   description: `Explore a wide range of educational and training videos focused on trading. 
   We provide exclusive content that includes trading strategies, technical analysis, and investment opportunities. 
   Stay updated with the latest market trends and strategies through our regularly updated videos, 
