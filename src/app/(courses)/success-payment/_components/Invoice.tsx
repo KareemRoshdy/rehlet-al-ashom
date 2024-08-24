@@ -44,22 +44,24 @@ const Invoice = ({
     useState<DaleyRecommendation | null>(null);
   const [wallet, setWallet] = useState<Wallet | null>(null);
 
-  const amount = +amount_cents * 100;
+  const amount = +amount_cents;
 
   const getData = async () => {
     if (courseId) {
       try {
         const response = await axios.get(`/api/courses/${courseId}`);
+        console.log("Course Response:", response);
 
         const course: Course = response.data;
 
         if (!course) {
+          console.log("No course found");
           return null;
         }
 
         setCourse(course);
       } catch (error) {
-        console.log(error);
+        console.log("Error fetching course:", error);
       }
     }
 
@@ -68,16 +70,18 @@ const Invoice = ({
         const response = await axios.get(
           `/api/recommendations/${recommendationId}`
         );
+        console.log("Recommendation Response:", response);
 
         const recommendation: Recommendation = response.data;
 
         if (!recommendation) {
+          console.log("No recommendation found");
           return null;
         }
 
         setRecommendation(recommendation);
       } catch (error) {
-        console.log(error);
+        console.log("Error fetching recommendation:", error);
       }
     }
 
@@ -86,32 +90,36 @@ const Invoice = ({
         const response = await axios.get(
           `/api/daily-recommendations/${dailyRecommendationId}`
         );
+        console.log("Daily Recommendation Response:", response);
 
-        const recommendation: DaleyRecommendation = response.data;
+        const dailyRecommendation: DaleyRecommendation = response.data;
 
-        if (!recommendation) {
+        if (!dailyRecommendation) {
+          console.log("No daily recommendation found");
           return null;
         }
 
-        setDailyRecommendation(recommendation);
+        setDailyRecommendation(dailyRecommendation);
       } catch (error) {
-        console.log(error);
+        console.log("Error fetching daily recommendation:", error);
       }
     }
 
     if (walletId) {
       try {
         const response = await axios.get(`/api/wallet/${walletId}`);
+        console.log("Wallet Response:", response);
 
         const wallet: Wallet = response.data;
 
         if (!wallet) {
+          console.log("No wallet found");
           return null;
         }
 
         setWallet(wallet);
       } catch (error) {
-        console.log(error);
+        console.log("Error fetching wallet:", error);
       }
     }
   };
@@ -124,7 +132,7 @@ const Invoice = ({
       dailyRecommendation,
       course,
     });
-  }, []);
+  }, [courseId, recommendationId, dailyRecommendationId, walletId]);
 
   return (
     <div className="p-3 max-w-md w-full">
@@ -139,7 +147,7 @@ const Invoice = ({
           <div className="space-y-2">
             <p>
               <strong>رقم الفاتورة: </strong>
-              <span>123456</span>
+              <span>{transaction_id}</span>
             </p>
             {user && (
               <p>
