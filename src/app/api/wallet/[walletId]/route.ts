@@ -78,3 +78,33 @@ export async function PATCH(request: NextRequest, { params }: Props) {
     return NextResponse.json({ message: "Internal error" }, { status: 500 });
   }
 }
+
+export async function GET(
+  request: NextRequest,
+  { params: { walletId } }: Props
+) {
+  try {
+    const { userId } = auth();
+    if (!userId) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+
+    const wallet = await prisma.recommendation.findUnique({
+      where: {
+        id: walletId,
+      },
+    });
+
+    if (!wallet) {
+      return NextResponse.json(
+        { message: "Wallet not found" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(wallet, { status: 200 });
+  } catch (error) {
+    console.log("[Wallet_ID]", error);
+    return NextResponse.json({ message: "Internal error" }, { status: 500 });
+  }
+}

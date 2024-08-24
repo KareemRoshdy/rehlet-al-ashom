@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { BadgeX, Verified } from "lucide-react";
 import { Loader } from "rsuite";
+import Invoice from "./Invoice";
 
 const SuccessPayment = () => {
   const router = useRouter();
@@ -88,7 +89,7 @@ const SuccessPayment = () => {
   const coursePurchased = async () => {
     await axios.post(`/api/courses/${courseId}/checkout`, { transaction_id });
     toast.success("تم الإشتراك بنجاح");
-    router.push(`/courses/${courseId}/chapters/${chapterId}`);
+    // router.push(`/courses/${courseId}/chapters/${chapterId}`);
     router.refresh();
   };
 
@@ -97,7 +98,7 @@ const SuccessPayment = () => {
       transaction_id,
     });
     toast.success("تم الإشتراك بنجاح");
-    router.push(`/recommendations/${recommendationId}`);
+    // router.push(`/recommendations/${recommendationId}`);
     router.refresh();
   };
 
@@ -107,14 +108,14 @@ const SuccessPayment = () => {
       { transaction_id }
     );
     toast.success("تم الإشتراك بنجاح");
-    router.push(`/daily-recommendations/${dailyRecommendationId}`);
+    // router.push(`/daily-recommendations/${dailyRecommendationId}`);
     router.refresh();
   };
 
   const walletPurchased = async () => {
     await axios.post(`/api/wallet/${walletId}/checkout`, { transaction_id });
     toast.success("تم الإشتراك بنجاح");
-    router.push(`/wallet/${walletId}`);
+    // router.push(`/wallet/${walletId}`);
     router.refresh();
   };
 
@@ -170,7 +171,7 @@ const SuccessPayment = () => {
   }, [success, isMounted]);
 
   return (
-    <div className="flex items-center justify-center h-full fix-h">
+    <div className="flex items-center justify-center h-full fix-h pb-9">
       <div>
         {isLoading ? (
           <div>
@@ -191,10 +192,20 @@ const SuccessPayment = () => {
               <>
                 <BadgeX className="flex items-center justify-center my-3 mx-auto text-red-700 w-40 h-40" />
                 <h2 className="mb-5 text-center">عملية دفع غير ناجحة</h2>
+
+                <Invoice
+                  transaction_id={transaction_id!}
+                  isSuccess={isSuccess}
+                  courseId={courseId}
+                  recommendationId={recommendationId}
+                  dailyRecommendationId={dailyRecommendationId}
+                  walletId={walletId}
+                  amount_cents={amount_cents!}
+                />
               </>
             )}
 
-            <Button size="sm" className="text-center">
+            <Button size="sm" className="text-center block w-fit m-auto">
               <Link className="m-auto" href={`/courses`}>
                 العودة الي صفحة الدورات
               </Link>

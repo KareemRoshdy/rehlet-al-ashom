@@ -101,3 +101,33 @@ export async function PATCH(request: NextRequest, { params }: Props) {
     return NextResponse.json({ message: "Internal error" }, { status: 500 });
   }
 }
+
+export async function GET(
+  request: NextRequest,
+  { params: { courseId } }: Props
+) {
+  try {
+    const { userId } = auth();
+    if (!userId) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+
+    const course = await prisma.course.findUnique({
+      where: {
+        id: courseId,
+      },
+    });
+
+    if (!course) {
+      return NextResponse.json(
+        { message: "course not found" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(course, { status: 200 });
+  } catch (error) {
+    console.log("[GET_COURSE_ID]", error);
+    return NextResponse.json({ message: "Internal error" }, { status: 500 });
+  }
+}

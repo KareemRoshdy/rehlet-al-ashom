@@ -76,8 +76,38 @@ export async function PATCH(request: NextRequest, { params }: Props) {
 
     return NextResponse.json(recommendation, { status: 200 });
   } catch (error) {
-    console.log("[recommendation_ID]", error);
+    console.log("[Daily_Recommendation_ID]", error);
 
+    return NextResponse.json({ message: "Internal error" }, { status: 500 });
+  }
+}
+
+export async function GET(
+  request: NextRequest,
+  { params: { recommendationId } }: Props
+) {
+  try {
+    const { userId } = auth();
+    if (!userId) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+
+    const daleyRecommendation = await prisma.daleyRecommendation.findUnique({
+      where: {
+        id: recommendationId,
+      },
+    });
+
+    if (!daleyRecommendation) {
+      return NextResponse.json(
+        { message: "daleyRecommendation not found" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(daleyRecommendation, { status: 200 });
+  } catch (error) {
+    console.log("[Daily_Recommendation_ID]", error);
     return NextResponse.json({ message: "Internal error" }, { status: 500 });
   }
 }
