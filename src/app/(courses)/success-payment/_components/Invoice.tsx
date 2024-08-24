@@ -49,9 +49,6 @@ const Invoice = async ({
     useState<DaleyRecommendation | null>(null);
   const [wallet, setWallet] = useState<Wallet | null>(null);
 
-  if (!user) {
-    router.push("/");
-  }
   const amount = +amount_cents * 100;
 
   if (courseId) {
