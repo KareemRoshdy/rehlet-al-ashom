@@ -1,11 +1,5 @@
 "use client";
 
-import {
-  getCourse,
-  getDailyRecommendation,
-  getRecommendation,
-  getWallet,
-} from "@/actions/get-data";
 import Banner from "@/components/banner";
 import { formatPrice } from "@/lib/format";
 import { useUser } from "@clerk/nextjs";
@@ -15,6 +9,7 @@ import {
   Recommendation,
   Wallet,
 } from "@prisma/client";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -28,7 +23,7 @@ interface InvoiceProps {
   amount_cents: string;
 }
 
-const Invoice = async ({
+const Invoice = ({
   transaction_id,
   isSuccess,
   courseId,
@@ -51,27 +46,78 @@ const Invoice = async ({
 
   const amount = +amount_cents * 100;
 
-  if (courseId) {
-    const result = await getCourse(courseId);
-    setCourse(result);
-  }
+  const getData = async () => {
+    if (courseId) {
+      try {
+        const response = await axios.get(`/api/courses/${courseId}`);
 
-  if (recommendationId) {
-    const result = await getRecommendation(recommendationId);
-    setRecommendation(result);
-  }
+        const course: Course = response.data;
 
-  if (dailyRecommendationId) {
-    const result = await getDailyRecommendation(dailyRecommendationId);
-    setDailyRecommendation(result);
-  }
+        if (!course) {
+          return null;
+        }
 
-  if (walletId) {
-    const result = await getWallet(walletId);
-    setWallet(result);
-  }
+        setCourse(course);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    if (recommendationId) {
+      try {
+        const response = await axios.get(
+          `/api/recommendations/${recommendationId}`
+        );
+
+        const recommendation: Recommendation = response.data;
+
+        if (!recommendation) {
+          return null;
+        }
+
+        setRecommendation(recommendation);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    if (dailyRecommendationId) {
+      try {
+        const response = await axios.get(
+          `/api/daily-recommendations/${dailyRecommendationId}`
+        );
+
+        const recommendation: DaleyRecommendation = response.data;
+
+        if (!recommendation) {
+          return null;
+        }
+
+        setDailyRecommendation(recommendation);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    if (walletId) {
+      try {
+        const response = await axios.get(`/api/wallet/${walletId}`);
+
+        const wallet: Wallet = response.data;
+
+        if (!wallet) {
+          return null;
+        }
+
+        setWallet(wallet);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
   useEffect(() => {
+    getData();
     console.log({
       wallet,
       recommendation,
