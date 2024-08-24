@@ -184,10 +184,20 @@ const SuccessPayment = () => {
         ) : (
           <>
             {isSuccess ? (
-              <>
+              <div>
                 <Verified className="flex items-center justify-center my-3 mx-auto text-green-700 w-40 h-40" />
                 <h2 className="mb-5 text-center">تم الدفع بنجاح</h2>
-              </>
+
+                <Invoice
+                  transaction_id={transaction_id!}
+                  isSuccess={isSuccess}
+                  courseId={courseId}
+                  recommendationId={recommendationId}
+                  dailyRecommendationId={dailyRecommendationId}
+                  walletId={walletId}
+                  amount_cents={amount_cents!}
+                />
+              </div>
             ) : (
               <>
                 <BadgeX className="flex items-center justify-center my-3 mx-auto text-red-700 w-40 h-40" />
