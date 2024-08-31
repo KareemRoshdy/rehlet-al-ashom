@@ -84,36 +84,42 @@ const SuccessPayment = () => {
     }
   }, []);
 
-  const coursePurchased = async () => {
-    await axios.post(`/api/courses/${courseId}/checkout`, { transaction_id });
-    toast.success("تم الإشتراك بنجاح");
-    // router.push(`/courses/${courseId}/chapters/${chapterId}`);
-    router.refresh();
-  };
+  // const coursePurchased = async () => {
+  //   await axios.post(`/api/courses/${courseId}/checkout`, { transaction_id });
+  //   toast.success("تم الإشتراك بنجاح");
+  //   // router.push(`/courses/${courseId}/chapters/${chapterId}`);
+  //   router.refresh();
+  // };
 
-  const recommendationPurchased = async () => {
-    await axios.post(`/api/recommendations/${recommendationId}/checkout`, {
-      transaction_id,
-    });
-    toast.success("تم الإشتراك بنجاح");
-    // router.push(`/recommendations/${recommendationId}`);
-    router.refresh();
-  };
+  // const recommendationPurchased = async () => {
+  //   await axios.post(`/api/recommendations/${recommendationId}/checkout`, {
+  //     transaction_id,
+  //   });
+  //   toast.success("تم الإشتراك بنجاح");
+  //   // router.push(`/recommendations/${recommendationId}`);
+  //   router.refresh();
+  // };
 
-  const dailyRecommendationPurchased = async () => {
-    await axios.post(
-      `/api/daily-recommendations/${dailyRecommendationId}/checkout`,
-      { transaction_id }
-    );
-    toast.success("تم الإشتراك بنجاح");
-    // router.push(`/daily-recommendations/${dailyRecommendationId}`);
-    router.refresh();
-  };
+  // const dailyRecommendationPurchased = async () => {
+  //   await axios.post(
+  //     `/api/daily-recommendations/${dailyRecommendationId}/checkout`,
+  //     { transaction_id }
+  //   );
+  //   toast.success("تم الإشتراك بنجاح");
+  //   // router.push(`/daily-recommendations/${dailyRecommendationId}`);
+  //   router.refresh();
+  // };
 
-  const walletPurchased = async () => {
-    await axios.post(`/api/wallet/${walletId}/checkout`, { transaction_id });
+  // const walletPurchased = async () => {
+  //   await axios.post(`/api/wallet/${walletId}/checkout`, { transaction_id });
+  //   toast.success("تم الإشتراك بنجاح");
+  //   // router.push(`/wallet/${walletId}`);
+  //   router.refresh();
+  // };
+
+  const handlePurchase = async (url: string) => {
+    await axios.post(url, { transaction_id });
     toast.success("تم الإشتراك بنجاح");
-    // router.push(`/wallet/${walletId}`);
     router.refresh();
   };
 
@@ -128,13 +134,17 @@ const SuccessPayment = () => {
 
       if (result) {
         if (courseId && chapterId) {
-          await coursePurchased();
+          await handlePurchase(`/api/courses/${courseId}/checkout`);
         } else if (recommendationId) {
-          await recommendationPurchased();
+          await handlePurchase(
+            `/api/recommendations/${recommendationId}/checkout`
+          );
         } else if (dailyRecommendationId) {
-          await dailyRecommendationPurchased();
+          await handlePurchase(
+            `/api/daily-recommendations/${dailyRecommendationId}/checkout`
+          );
         } else if (walletId) {
-          await walletPurchased();
+          await handlePurchase(`/api/wallet/${walletId}/checkout`);
         } else {
           console.log("No valid IDs found.");
         }
