@@ -28,6 +28,7 @@ const NavbarRoutes = ({ isAdminPage }: NavbarRoutesProps) => {
   const isWalletPage = pathname?.includes("/wallet");
   const isNewsPage = pathname?.includes("/news");
   const isSubscribePage = pathname?.includes("/subscribe");
+  const isSuccessPaymentPage = pathname?.includes("/success-payment");
 
   const shouldHideNavLinks =
     isCoursePage ||
@@ -35,7 +36,8 @@ const NavbarRoutes = ({ isAdminPage }: NavbarRoutesProps) => {
     isWalletPage ||
     isDailyRecommendationPage ||
     isSubscribePage ||
-    isNewsPage;
+    isNewsPage ||
+    isSuccessPaymentPage;
 
   return (
     <>
