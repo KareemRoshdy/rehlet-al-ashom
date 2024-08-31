@@ -12,10 +12,10 @@ import Invoice from "./Invoice";
 
 const SuccessPayment = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const [isLoading, setIsLoading] = useState(true);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
 
   const [courseId, setCourseId] = useState("");
   const [chapterId, setChapterId] = useState("");
@@ -23,8 +23,6 @@ const SuccessPayment = () => {
   const [recommendationId, setRecommendationId] = useState("");
   const [dailyRecommendationId, setDailyRecommendationId] = useState("");
   const [walletId, setWalletId] = useState("");
-
-  const searchParams = useSearchParams();
 
   const success = searchParams.get("success");
   const transaction_id = searchParams.get("id");
@@ -154,21 +152,15 @@ const SuccessPayment = () => {
   };
 
   useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (isMounted) {
-      if (success === "true") {
-        setIsSuccess(true);
-        successHandler();
-      } else {
-        setIsSuccess(false);
-        setIsLoading(false);
-        toast.error("عملية دفع غير ناجحة");
-      }
+    if (success === "true") {
+      setIsSuccess(true);
+      successHandler();
+    } else {
+      setIsSuccess(false);
+      setIsLoading(false);
+      toast.error("عملية دفع غير ناجحة");
     }
-  }, [success, isMounted]);
+  }, [success]);
 
   return (
     <div className="flex items-center justify-center h-full fix-h pb-9">
