@@ -5,6 +5,9 @@ import { ToastProvider } from "@/components/providers/toasterProvider";
 import { ConfettiProvider } from "@/components/providers/confetti-provider";
 
 import { Metadata } from "next";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+import { isTeacher } from "@/lib/teacher";
 export const metadata: Metadata = {
   title: "صفحة الأدمن",
   description:
@@ -12,6 +15,14 @@ export const metadata: Metadata = {
 };
 
 const AdminLayout: any = ({ children }: { children: React.ReactNode }) => {
+  const { userId } = auth();
+
+  const admin = isTeacher(userId);
+
+  if (!userId || !admin) {
+    return redirect("/");
+  }
+
   return (
     <>
       <div className="h-full">

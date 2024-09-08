@@ -14,7 +14,7 @@ export async function DELETE(request: NextRequest, { params }: Props) {
     const { userId } = auth();
     const { walletId } = params;
 
-    if (!userId || !isTeacher(userId)) {
+    if (userId !== process.env.NEXT_PUBLIC_ADMIN_ID || !isTeacher(userId)) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
@@ -58,7 +58,7 @@ export async function PATCH(request: NextRequest, { params }: Props) {
     const { walletId } = params;
     const values = await request.json();
 
-    if (!userId || !isTeacher(userId)) {
+    if (userId !== process.env.NEXT_PUBLIC_ADMIN_ID || !isTeacher(userId)) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 

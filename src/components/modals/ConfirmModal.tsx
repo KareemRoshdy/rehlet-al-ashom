@@ -23,14 +23,16 @@ const ConfirmModal = ({ children, onConfirm }: ConfirmModalProps) => {
       <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This action cannot be undone.
+          <AlertDialogTitle className="rtl:text-right ltr:text-left">
+            هل أنت متاكد؟
+          </AlertDialogTitle>
+          <AlertDialogDescription className="rtl:text-right ltr:text-left">
+            يمكن التراجع عن هذا الإجراء.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={onConfirm}>Continue</AlertDialogAction>
+          <AlertDialogCancel className="ml-2">إلغاء</AlertDialogCancel>
+          <AlertDialogAction onClick={onConfirm}>حذف</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

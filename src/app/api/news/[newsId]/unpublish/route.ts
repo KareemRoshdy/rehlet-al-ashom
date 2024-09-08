@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/db";
+import { isTeacher } from "@/lib/teacher";
 
 interface Props {
   params: {
@@ -13,7 +14,7 @@ export async function PATCH(request: NextRequest, { params }: Props) {
     const { userId } = auth();
     const { newsId } = params;
 
-    if (userId !== process.env.NEXT_PUBLIC_ADMIN_ID) {
+    if (userId !== process.env.NEXT_PUBLIC_ADMIN_ID || !isTeacher(userId)) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 

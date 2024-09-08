@@ -7,6 +7,7 @@ import { LogOut } from "lucide-react";
 import Link from "next/link";
 import Logo from "./Logo";
 import NavLinks from "./NavLinks";
+import { isTeacher } from "@/lib/teacher";
 
 interface NavbarRoutesProps {
   isAdminPage?: boolean;
@@ -15,7 +16,7 @@ interface NavbarRoutesProps {
 const NavbarRoutes = ({ isAdminPage }: NavbarRoutesProps) => {
   const { userId } = useAuth();
 
-  const isAdmin = userId === process.env.NEXT_PUBLIC_ADMIN_ID;
+  const isAdmin = isTeacher(userId);
 
   const pathname = usePathname();
 

@@ -1,15 +1,8 @@
-import isAdmin from "@/lib/adminValidation";
 import { redirect } from "next/navigation";
 
 import prisma from "@/lib/db";
 import Link from "next/link";
-import {
-  ArrowLeft,
-  ArrowRight,
-  Eye,
-  LayoutDashboard,
-  Video,
-} from "lucide-react";
+import { ArrowRight, Eye, LayoutDashboard, Video } from "lucide-react";
 import { IconBadge } from "@/components/IconBadge";
 import ChapterTitleForm from "./_components/ChapterTitleForm";
 import ChapterDescriptionForm from "./_components/ChapterDescriptionForm";
