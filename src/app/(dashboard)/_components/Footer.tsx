@@ -19,12 +19,12 @@ const Footer = () => {
     },
     {
       icon: BiLogoTelegram,
-      link: "#",
+      link: "https://t.me/+201095261572",
       label: "telegram",
     },
     {
       icon: IoLogoWhatsapp,
-      link: "https://api.whatsapp.com/send/?phone=%2B201095261572&text&type=phone_number&app_absent=0",
+      link: "https://wa.me/201095261572",
       label: "whatsapp",
     },
 

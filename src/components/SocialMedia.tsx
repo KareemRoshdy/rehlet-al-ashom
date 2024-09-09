@@ -14,7 +14,7 @@ const SocialMedia = () => {
     },
     {
       icon: BiLogoTelegram,
-      link: "https://t.me/201095261572",
+      link: "https://t.me/+201095261572",
       label: "telegram",
     },
     {
