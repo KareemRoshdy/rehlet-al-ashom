@@ -1,63 +1,49 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { GrFacebookOption, GrYoutube } from "react-icons/gr";
+import { GrYoutube } from "react-icons/gr";
 import { IoLogoWhatsapp } from "react-icons/io";
-import { BiMessageRounded, BiX, BiLinkAlt } from "react-icons/bi"; // Icon for the main contact button
+import { BiLogoTelegram } from "react-icons/bi"; // Icon for the main contact button
 
 const SocialMedia = () => {
-  const [isOpen, setIsOpen] = useState(false); // State to toggle icons visibility
-
   const socialMediaLinks = [
     {
-      icon: GrFacebookOption,
-      link: "#",
-      label: "facebook",
+      icon: GrYoutube,
+      link: "https://youtube.com/@mahmoudabdelwhab777?si=uW5J6qGNRAT954wv",
+      label: "youtube",
+    },
+    {
+      icon: BiLogoTelegram,
+      link: "https://t.me/201095261572",
+      label: "telegram",
     },
     {
       icon: IoLogoWhatsapp,
-      link: "#",
+      link: "https://wa.me/201095261572",
       label: "whatsapp",
     },
+
     {
       icon: GrYoutube,
-      link: "#",
+      link: "https://youtube.com/channel/UCA4fg0OQol3DgxPHhqYvNYQ?si=lqL_83AI1wNbMTxO",
       label: "youtube",
     },
   ];
 
   return (
-    <div className="fixed left-4 md:left-5 bottom-4 z-10 flex flex-col-reverse items-center space-y-3 space-y-reverse">
-      {/* Floating Contact Button */}
-      <button
-        style={{
-          clipPath:
-            "polygon(50% 0%, 83% 12%, 100% 43%, 94% 78%, 68% 100%, 32% 100%, 6% 78%, 0% 43%, 17% 12%)",
-        }}
-        onClick={() => setIsOpen(!isOpen)}
-        className="bg-[#0369a1] text-white p-3 shadow-xl hover:bg-[#025b8b] transition overflow-hidden flex items-center justify-center"
-      >
-        {isOpen ? (
-          <BiX className="w-6 h-6" />
-        ) : (
-          <BiLinkAlt className="w-6 h-6" />
-        )}
-      </button>
-
+    <div className="fixed left-4 md:left-5 top-[50%] z-10 flex flex-col-reverse items-center space-y-3 space-y-reverse">
       {/* Social Media Icons */}
       <div
-        className={`flex flex-col items-center space-y-3 transition-all duration-300 ease-in-out ${
-          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
+        className={`flex flex-col items-center space-y-3 transition-all duration-300 ease-in-out `}
       >
         {socialMediaLinks.map((link) => (
           <Link
             href={link.link}
             key={link.link}
-            className={`bg-white p-3 rounded-full flex items-center justify-center shadow-xl transform transition-transform duration-300 ease-in-out ${
-              isOpen ? "translate-y-0 scale-100" : "translate-y-4 scale-75"
-            } 
-            ${link.label === "facebook" && "text-[#1877F2]"} 
+            target="_blank"
+            className={`bg-white p-3 rounded-full flex items-center justify-center shadow-xl transform transition-transform duration-300 ease-in-out 
+            
+            ${link.label === "telegram" && "text-[#0088cc]"} 
             ${link.label === "whatsapp" && "text-[#25D366]"} 
             ${link.label === "youtube" && "text-[#FF0000]"} 
             `}

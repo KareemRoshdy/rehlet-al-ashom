@@ -2,8 +2,9 @@
 import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 import NavLinks from "./NavLinks";
-import { GrFacebookOption, GrYoutube } from "react-icons/gr";
+import { GrYoutube } from "react-icons/gr";
 import { IoLogoWhatsapp } from "react-icons/io";
+import { BiLogoTelegram } from "react-icons/bi";
 
 const Footer = () => {
   const pathname = usePathname();
@@ -12,18 +13,24 @@ const Footer = () => {
 
   const socialMediaLinks = [
     {
-      icon: GrFacebookOption,
+      icon: GrYoutube,
+      link: "https://youtube.com/@mahmoudabdelwhab777?si=uW5J6qGNRAT954wv",
+      label: "youtube",
+    },
+    {
+      icon: BiLogoTelegram,
       link: "#",
-      label: "facebook",
+      label: "telegram",
     },
     {
       icon: IoLogoWhatsapp,
-      link: "#",
+      link: "https://api.whatsapp.com/send/?phone=%2B201095261572&text&type=phone_number&app_absent=0",
       label: "whatsapp",
     },
+
     {
       icon: GrYoutube,
-      link: "#",
+      link: "https://youtube.com/channel/UCA4fg0OQol3DgxPHhqYvNYQ?si=lqL_83AI1wNbMTxO",
       label: "youtube",
     },
   ];

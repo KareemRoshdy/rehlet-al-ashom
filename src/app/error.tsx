@@ -34,8 +34,7 @@ const error = ({ error, reset }: ErrorPageProps) => {
           </h2>
 
           <p className="mt-4 text-gray-500 dark:text-gray-400">
-            Try again, or return home to start from the beginning. حاول مرة
-            اخري, او عود الي الصفحة الرئيسية للبدء من جديد
+            .حاول مرة اخري, او عود الي الصفحة الرئيسية للبدء من جديد
           </p>
 
           <div className="flex items-center justify-center gap-5">

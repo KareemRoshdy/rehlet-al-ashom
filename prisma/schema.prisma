@@ -23,6 +23,17 @@ model Course {
   updateddAt DateTime @updatedAt
 }
 
+model Banner {
+  id          String @id @default(uuid())
+  title       String @db.Text
+  subTitle    String @db.Text
+  description String @db.Text
+  imageUrl    String @db.Text
+
+  createdAt  DateTime @default(now())
+  updateddAt DateTime @updatedAt
+}
+
 model Wallet {
   id          String  @id @default(uuid())
   title       String  @db.Text

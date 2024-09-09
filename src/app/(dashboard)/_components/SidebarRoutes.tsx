@@ -4,6 +4,7 @@ import {
   BarChart,
   Bell,
   CalendarCheck,
+  House,
   Layout,
   List,
   Newspaper,
@@ -70,6 +71,11 @@ const teacherRoutes = [
     icon: Wallet,
     label: "إدارة المحافظ",
     href: "/admin/wallet",
+  },
+  {
+    icon: House,
+    label: "الرئيسية",
+    href: "/admin/banner",
   },
 ];
 
