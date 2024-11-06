@@ -1,3 +1,4 @@
+import { currentUser } from "@clerk/nextjs/server";
 import axios from "axios";
 
 export const firstStep = async (amount: number) => {
@@ -51,6 +52,8 @@ export const secondStep = async (token: string, amount: number) => {
 
 export const thirdStep = async (token: string, id: number, amount: number) => {
   try {
+    const user = await currentUser();
+
     const amountInCents = Math.round(amount * 100);
 
     const data = {
@@ -60,9 +63,10 @@ export const thirdStep = async (token: string, id: number, amount: number) => {
       order_id: id,
       billing_data: {
         apartment: "803",
-        email: "claudette09@exa.com",
+        email: user?.externalAccounts[0]?.emailAddress || "user@gmail.com",
         floor: "42",
-        first_name: "user",
+        first_name: user?.firstName || "fName",
+        last_name: user?.lastName || "LName",
         street: "str",
         building: "8028",
         phone_number: "+86(8)9135210487",
@@ -70,7 +74,6 @@ export const thirdStep = async (token: string, id: number, amount: number) => {
         postal_code: "01898",
         city: "city",
         country: "CR",
-        last_name: "user",
         state: "Utah",
       },
       currency: "EGP",
