@@ -11,7 +11,6 @@ import {
 } from "@prisma/client";
 import axios from "axios";
 import { Loader } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface InvoiceProps {
@@ -34,7 +33,6 @@ const Invoice = ({
   amount_cents,
 }: InvoiceProps) => {
   const { user } = useUser();
-  const router = useRouter();
 
   // All States
   const [isLoading, setIsLoading] = useState<boolean>(false);
