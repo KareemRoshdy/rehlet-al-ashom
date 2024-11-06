@@ -71,7 +71,7 @@ export function DataTable<TData, TValue>({
         <Link href={`/admin/news/create`}>
           <Button>
             <PlusCircle className="h-4 w-4 ml-2" />
-            خبر جديدة
+            خبر جديد
           </Button>
         </Link>
       </div>

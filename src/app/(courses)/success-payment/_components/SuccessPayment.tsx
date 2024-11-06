@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import {  useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { BadgeX, Verified } from "lucide-react";
@@ -11,15 +11,13 @@ import { Loader } from "rsuite";
 import Invoice from "./Invoice";
 
 const SuccessPayment = () => {
-  const router = useRouter();
   const searchParams = useSearchParams();
-
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isSuccess, setIsSuccess] = useState(false);
 
   const [courseId, setCourseId] = useState("");
   const [chapterId, setChapterId] = useState("");
-
   const [recommendationId, setRecommendationId] = useState("");
   const [dailyRecommendationId, setDailyRecommendationId] = useState("");
   const [walletId, setWalletId] = useState("");
@@ -70,57 +68,35 @@ const SuccessPayment = () => {
   };
 
   useEffect(() => {
-    // Ensure this code runs only on the client
     if (typeof window !== "undefined") {
-      setCourseId(window.localStorage.getItem("courseId") || "");
-      setChapterId(window.localStorage.getItem("chapterId") || "");
-      setRecommendationId(
-        window.localStorage.getItem("recommendationId") || ""
-      );
-      setDailyRecommendationId(
-        window.localStorage.getItem("dailyRecommendationId") || ""
-      );
-      setWalletId(window.localStorage.getItem("walletId") || "");
+      const storedCourseId = window.localStorage.getItem("courseId") || "";
+      const storedChapterId = window.localStorage.getItem("chapterId") || "";
+      const storedRecommendationId =
+        window.localStorage.getItem("recommendationId") || "";
+      const storedDailyRecommendationId =
+        window.localStorage.getItem("dailyRecommendationId") || "";
+      const storedWalletId = window.localStorage.getItem("walletId") || "";
+
+      setCourseId(storedCourseId);
+      setChapterId(storedChapterId);
+      setRecommendationId(storedRecommendationId);
+      setDailyRecommendationId(storedDailyRecommendationId);
+      setWalletId(storedWalletId);
+
+      setIsDataLoaded(true);
     }
   }, []);
 
-  // const coursePurchased = async () => {
-  //   await axios.post(`/api/courses/${courseId}/checkout`, { transaction_id });
-  //   toast.success("تم الإشتراك بنجاح");
-  //   // router.push(`/courses/${courseId}/chapters/${chapterId}`);
-  //   router.refresh();
-  // };
-
-  // const recommendationPurchased = async () => {
-  //   await axios.post(`/api/recommendations/${recommendationId}/checkout`, {
-  //     transaction_id,
-  //   });
-  //   toast.success("تم الإشتراك بنجاح");
-  //   // router.push(`/recommendations/${recommendationId}`);
-  //   router.refresh();
-  // };
-
-  // const dailyRecommendationPurchased = async () => {
-  //   await axios.post(
-  //     `/api/daily-recommendations/${dailyRecommendationId}/checkout`,
-  //     { transaction_id }
-  //   );
-  //   toast.success("تم الإشتراك بنجاح");
-  //   // router.push(`/daily-recommendations/${dailyRecommendationId}`);
-  //   router.refresh();
-  // };
-
-  // const walletPurchased = async () => {
-  //   await axios.post(`/api/wallet/${walletId}/checkout`, { transaction_id });
-  //   toast.success("تم الإشتراك بنجاح");
-  //   // router.push(`/wallet/${walletId}`);
-  //   router.refresh();
-  // };
+  useEffect(() => {
+    if (isDataLoaded && success === "true") {
+      successHandler();
+    }
+  }, [isDataLoaded, success]);
 
   const handlePurchase = async (url: string) => {
+    console.log("Attempting to purchase with URL:", url);
     await axios.post(url, { transaction_id });
     toast.success("تم الإشتراك بنجاح");
-    router.refresh();
   };
 
   const successHandler = async () => {
@@ -129,10 +105,11 @@ const SuccessPayment = () => {
       setIsSuccess(true);
 
       const res = await axios.post(`/api/verify-hmac`, { data, hmac });
-
       const result = res.data.valid;
 
       if (result) {
+        window.localStorage.setItem("paymentStatus", "success");
+
         if (courseId && chapterId) {
           await handlePurchase(`/api/courses/${courseId}/checkout`);
         } else if (recommendationId) {
@@ -153,9 +130,8 @@ const SuccessPayment = () => {
         toast.error("عملية دفع غير ناجحة");
       }
     } catch (err: any) {
-      console.log("Error:", err.message);
       setIsSuccess(false);
-      toast.error("عملية دفع غير ناجحة");
+      toast.error(err.response.data.message);
     } finally {
       setIsLoading(false);
     }
@@ -163,14 +139,20 @@ const SuccessPayment = () => {
 
   useEffect(() => {
     if (success === "true") {
-      setIsSuccess(true);
-      successHandler();
+      const paymentStatus = window.localStorage.getItem("paymentStatus");
+
+      if (paymentStatus !== "success") {
+        setIsSuccess(true);
+        successHandler();
+      } else {
+        setIsLoading(false);
+      }
     } else {
       setIsSuccess(false);
       setIsLoading(false);
       toast.error("عملية دفع غير ناجحة");
     }
-  }, [success]);
+  }, []);
 
   return (
     <div className="flex items-center justify-center h-full fix-h pb-9">
@@ -179,7 +161,7 @@ const SuccessPayment = () => {
           <div>
             <Loader
               center
-              content="  تحميل..."
+              content="تحميل..."
               className="text-center m-auto flex gap-x-2"
             />
           </div>

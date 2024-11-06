@@ -7,6 +7,9 @@ export const getDailyRecommendations = async (): Promise<
 > => {
   try {
     const dailyRecommendations = await prisma.daleyRecommendation.findMany({
+      where: {
+        isPublished: true,
+      },
       orderBy: {
         createdAt: "desc",
       },

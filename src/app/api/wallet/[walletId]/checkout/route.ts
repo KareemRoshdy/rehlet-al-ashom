@@ -39,7 +39,7 @@ export async function POST(req: NextRequest, { params }: Props) {
 
     if (purchase) {
       return NextResponse.json(
-        { message: "Already purchased" },
+        { message: "انت مشترك بالفعل" },
         { status: 400 }
       );
     }

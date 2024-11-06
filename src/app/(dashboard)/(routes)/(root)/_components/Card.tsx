@@ -23,8 +23,10 @@ const NewsCard = ({
   return (
     <Link href={`/${link}/${id}`} className="card">
       <div className="group hover:shadow-md transition overflow-hidden border rounded-lg p-3 h-full">
-        <div className="relative w-full aspect-video rounded-md overflow-hidden">
-          <Image fill className="object-cover" alt={title} src={imageUrl} />
+        <div className="relative w-full aspect-video rounded-md overflow-hidden bg-gray-200">
+          {imageUrl && (
+            <Image fill className="object-cover" alt={title} src={imageUrl} />
+          )}
         </div>
 
         <div className="flex flex-col pt-2">
