@@ -40,10 +40,10 @@ const Footer = () => {
       <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="flex justify-center text-teal-600">
           <Image
-            width={160}
-            height={160}
+            width={350}
+            height={350}
             className="object-cover"
-            src="/visa.jpeg"
+            src="/vs.jpeg"
             alt="logo"
           />
         </div>
