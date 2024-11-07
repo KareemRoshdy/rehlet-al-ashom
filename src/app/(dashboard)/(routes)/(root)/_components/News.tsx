@@ -9,7 +9,7 @@ const News = async () => {
 
   return (
     <section id="news" className="p-7 bg-gray-100">
-      <Heading title="أهم الاخبار" icon={<FcNews />} />
+      <Heading title="Gold" icon={<FcNews />} />
 
       <div className="md:p-6  space-y-4">
         <NewsList items={news} />

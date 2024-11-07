@@ -5,6 +5,7 @@ import NavLinks from "./NavLinks";
 import { GrYoutube } from "react-icons/gr";
 import { IoLogoWhatsapp } from "react-icons/io";
 import { BiLogoTelegram } from "react-icons/bi";
+import Image from "next/image";
 
 const Footer = () => {
   const pathname = usePathname();
@@ -38,7 +39,13 @@ const Footer = () => {
     <footer className="bg-gray-100">
       <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="flex justify-center text-teal-600">
-          <Logo />
+          <Image
+            width={160}
+            height={160}
+            className="object-cover"
+            src="/visa.jpeg"
+            alt="logo"
+          />
         </div>
 
         <p className="hidden md:block mx-auto my-6 max-w-md text-center leading-relaxed text-gray-500">
