@@ -51,11 +51,11 @@ const CourseEnrollButton = ({
   return (
     <Button
       size="sm"
-      className="w-full md:w-auto"
+      className="w-full md:w-fit hover:bg-green-600"
       onClick={onClick}
       disabled={isLoading}
     >
-      {isLoading ? <Loader /> : `Enroll for ${formatPrice(price)}`}
+      {isLoading ? <Loader /> : `اشترك الان ${formatPrice(price)}`}
     </Button>
   );
 };
