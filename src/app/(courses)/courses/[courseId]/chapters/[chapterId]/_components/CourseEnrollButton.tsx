@@ -14,7 +14,7 @@ interface CourseEnrollButtonProps {
 
 const cardPayment = (token: string) => {
   if (typeof window !== "undefined") {
-    const iframeUrl = `https://accept.paymob.com/api/acceptance/iframes/858325?payment_token=${token}`;
+    const iframeUrl = `https://accept.paymob.com/api/acceptance/iframes/879960?payment_token=${token}`;
     window.location.href = iframeUrl;
   } else {
     console.error("window is not defined. Cannot redirect.");
