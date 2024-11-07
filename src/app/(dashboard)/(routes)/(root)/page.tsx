@@ -30,10 +30,6 @@ export default async function Dashboard() {
       </div>
 
       <div>
-        <News />
-      </div>
-
-      <div>
         <Recommendations />
       </div>
 
@@ -43,6 +39,10 @@ export default async function Dashboard() {
 
       <div>
         <Wallet />
+      </div>
+
+      <div>
+        <News />
       </div>
     </div>
   );
