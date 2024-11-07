@@ -28,7 +28,7 @@ const NavLinks = () => {
       href: "#wallet",
     },
     {
-      label: "أهم الاخبار",
+      label: "Gold",
       href: "#news",
     },
   ];

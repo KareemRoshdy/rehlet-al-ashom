@@ -64,7 +64,7 @@ const teacherRoutes = [
   },
   {
     icon: Newspaper,
-    label: "اهم الأخبار",
+    label: "Gold",
     href: "/admin/news",
   },
   {
