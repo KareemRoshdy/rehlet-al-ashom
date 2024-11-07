@@ -20,11 +20,9 @@ const AdminCoursesPage = async () => {
   }
 
   const courses = await prisma.course.findMany({
-    where: {
-      userId,
-    },
     orderBy: { createdAt: "desc" },
   });
+
   return (
     <div className="p-6">
       <DataTable columns={columns} data={courses} />
