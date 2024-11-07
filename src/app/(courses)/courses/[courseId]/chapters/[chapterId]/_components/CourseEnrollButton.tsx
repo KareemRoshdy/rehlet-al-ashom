@@ -12,6 +12,7 @@ interface CourseEnrollButtonProps {
   chapterId: string;
 }
 
+// Change Iframe
 const cardPayment = (token: string) => {
   if (typeof window !== "undefined") {
     const iframeUrl = `https://accept.paymob.com/api/acceptance/iframes/879960?payment_token=${token}`;
