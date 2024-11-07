@@ -52,7 +52,7 @@ const RecommendationsEnrollButton = ({
       onClick={onClick}
       disabled={isLoading}
     >
-      {isLoading ? <Loader /> : `اشترك الان ${formatPrice(price)}`}
+      {isLoading ? <Loader /> : `${formatPrice(price)}`}
     </Button>
   );
 };

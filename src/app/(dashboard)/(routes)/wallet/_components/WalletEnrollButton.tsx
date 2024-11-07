@@ -52,7 +52,7 @@ const WalletEnrollButton = ({
       onClick={onClick}
       disabled={isLoading}
     >
-      {isLoading ? <Loader /> : `اشترك الان ${formatPrice(price)}`}
+      {isLoading ? <Loader /> : `${formatPrice(price)}`}
     </Button>
   );
 };
