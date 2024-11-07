@@ -20,9 +20,9 @@ const guestRoutes = [
     href: "#home",
   },
   {
-    icon: Newspaper,
-    label: "أهم الاخبار",
-    href: "#news",
+    icon: List,
+    label: "الدورات التدريبية",
+    href: "/courses",
   },
   {
     icon: Bell,
@@ -39,10 +39,11 @@ const guestRoutes = [
     label: "إدارة المحافظ",
     href: "#wallet",
   },
+
   {
-    icon: List,
-    label: "الدورات",
-    href: "/courses",
+    icon: Newspaper,
+    label: "Gold",
+    href: "#news",
   },
 ];
 
