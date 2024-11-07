@@ -51,7 +51,7 @@ const CourseEnrollButton = ({
   return (
     <Button
       size="sm"
-      className="w-full md:w-fit hover:bg-green-600"
+      className="w-full md:w-fit bg-blue-800 hover:bg-green-600 "
       onClick={onClick}
       disabled={isLoading}
     >

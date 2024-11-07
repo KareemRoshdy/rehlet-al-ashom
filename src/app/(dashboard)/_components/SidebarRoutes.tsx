@@ -49,7 +49,7 @@ const guestRoutes = [
 const teacherRoutes = [
   {
     icon: List,
-    label: "الدورات",
+    label: "الدورات التدريبية",
     href: "/admin/courses",
   },
   {

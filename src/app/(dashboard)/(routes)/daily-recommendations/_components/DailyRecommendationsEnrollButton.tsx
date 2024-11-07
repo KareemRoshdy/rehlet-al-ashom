@@ -51,7 +51,7 @@ const DailyRecommendationsEnrollButton = ({
   return (
     <Button
       size="sm"
-      className="w-full md:w-fit text-white hover:bg-green-600"
+      className="w-full md:w-fit bg-blue-800 hover:bg-green-600 "
       onClick={onClick}
       disabled={isLoading}
     >

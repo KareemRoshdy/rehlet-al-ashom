@@ -1,15 +1,12 @@
 export const formatPrice = (price: number): string => {
-  // Format the number using the 'en-EG' locale and 'currency' style
+  // Format the number using the 'en-EG' locale with no decimal places
   const formattedPrice = new Intl.NumberFormat("en-EG", {
     style: "currency",
     currency: "EGP",
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
   }).format(price);
 
-  // Remove the currency symbol from the formatted string
-  const priceWithoutSymbol = formattedPrice.replace("EGP", "").trim();
-
-  // Return the formatted string with the currency symbol at the end
-  return `${priceWithoutSymbol} EGP`;
+  // Replace 'EGP' with 'جنيه مصري'
+  return formattedPrice.replace("EGP", "جنيه مصري").trim();
 };

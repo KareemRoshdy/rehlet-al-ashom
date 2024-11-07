@@ -11,9 +11,10 @@ const NavLinks = () => {
       href: "#home",
     },
     {
-      label: "أهم الاخبار",
-      href: "#news",
+      label: "الدورات التدريبية",
+      href: "/courses",
     },
+
     {
       label: "التوصيات اللحظية",
       href: "#Recommendations",
@@ -27,8 +28,8 @@ const NavLinks = () => {
       href: "#wallet",
     },
     {
-      label: "الدورات",
-      href: "/courses",
+      label: "أهم الاخبار",
+      href: "#news",
     },
   ];
 
